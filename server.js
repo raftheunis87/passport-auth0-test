@@ -32,8 +32,14 @@ app.set('view engine', 'jade');
 
 app.use(morgan('combined'));
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(expressSession({ secret: 'super-secret', resave: true, saveUninitialized: true }));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(expressSession({
+    secret: 'super-secret',
+    resave: true,
+    saveUninitialized: true
+}));
 
 // Initialize Passport
 app.use(passport.initialize());
@@ -62,7 +68,9 @@ app.get('/callback', passport.authenticate('auth0'), (req, res) => {
 });
 
 app.get('/user', connectEnsureLogin.ensureLoggedIn('/'), (req, res) => {
-    res.render('user', { user: req.user });
+    res.render('user', {
+        user: req.user
+    });
 });
 
 app.listen(3000);
